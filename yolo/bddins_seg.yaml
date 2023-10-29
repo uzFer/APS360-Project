@@ -1,0 +1,6 @@
+train: ../bddins_seg/train/images
+val: ../bddins_seg/val/images
+
+
+nc: 9
+names: ['none', 'pedestrian', 'rider', 'car', 'truck', 'bus', 'train', 'motorcycle', 'bicycle']

@@ -1,0 +1,1 @@
+#This file is where we loop through all the images in bddins_seg, and revert the rle to generate actual input images
