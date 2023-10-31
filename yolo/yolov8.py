@@ -8,9 +8,17 @@ class YOLOv8Wrapper():
     def __init__(self, checkpoint='pretrained/yolov8n-seg.pt'):
         self.model = YOLO(checkpoint) 
 
-    def train(self, model, datasetyaml, batch_size=128, num_epochs=5, checkpointFreq=1):
+    def train(self, model, datasetyaml, batch_size=128, num_epochs=5, checkpointFreq=1, optimizer='Adam'):
         # Train the model
-        model.train(data=datasetyaml, batch=batch_size, epochs=num_epochs, save=True, save_period=checkpointFreq, seed=0)
+        model.train(
+            data=datasetyaml, 
+            batch=batch_size, 
+            epochs=num_epochs, 
+            save=True, 
+            save_period=checkpointFreq, 
+            seed=0, 
+            optimizer=optimizer
+            )
 
     def getConfusionMatrix(self):
         metrics = self.model.val()
