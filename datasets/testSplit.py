@@ -22,11 +22,11 @@ def find_same_files(folder_1, folder_2):
 
 # Paths for the folders containing .txt and .png files
 folder_txt = r'C:\Users\desai\Downloads\bdd100k_ins_seg_labels_trainval\bdd100k\labels\ins_seg\polygons\trainTxt'
-folder_png = r'C:\Users\desai\Downloads\bdd100k_images_10k\bdd100k\images\10k\testSplit'
+folder_png = r'C:\Users\desai\Downloads\bdd100k_images_10k\bdd100k\images\10k\APS360ImgData\train'
 
 # Paths for the folders to move .txt and .png files
 destination_txt = r'C:\Users\desai\Downloads\bdd100k_ins_seg_labels_trainval\bdd100k\labels\ins_seg\polygons\testTxt'
-destination_png = r'C:\Users\desai\Downloads\bdd100k_images_10k\bdd100k\images\10k\testSplit'
+destination_png = r'C:\Users\desai\Downloads\bdd100k_images_10k\bdd100k\images\10k\APS360ImgData\testSplit'
 
 # Find 2000 same named files with different extensions
 common_files = find_same_files(folder_txt, folder_png)
@@ -40,8 +40,8 @@ if len(common_files) == 2000:
             shutil.move(txt_file, os.path.join(destination_txt, file + '.txt'))
 
     # Move .png files to a different folder
-    # for file in common_files:
-    #     png_file = os.path.join(folder_png, file + '.jpg')
-    #     if os.path.exists(png_file):
-    #         print("exists")
-    #         shutil.move(png_file, os.path.join(destination_png, file + '.jpg'))
+    for file in common_files:
+        png_file = os.path.join(folder_png, file + '.jpg')
+        if os.path.exists(png_file):
+            print("exists")
+            shutil.move(png_file, os.path.join(destination_png, file + '.jpg'))

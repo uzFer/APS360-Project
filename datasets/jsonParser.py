@@ -10,7 +10,8 @@ def BDDLabel_to_YOLO(input_file, output_folder):
     with open(input_file, 'r') as json_file:
         objects_array = json.load(json_file)
     
-    classes = ['person', 'rider', 'car', 'caravan', 'truck', 'bus', 'train', 'trailer','motorcycle', 'bicycle']
+    # classes = ['person', 'rider', 'car', 'caravan', 'truck', 'bus','motorcycle', 'bicycle', 'large-vehicle', 'small-vehicle']
+    classes = ['person', 'car', 'large-vehicle', 'small-vehicle']
     for obj in objects_array:
         name, _  = os.path.splitext(obj['name'])
         labels = obj['labels']
@@ -20,11 +21,32 @@ def BDDLabel_to_YOLO(input_file, output_folder):
         with open(file_name, 'w') as txt_file:
            for label in labels:
                 class_name = label['category']
-                class_index = classes.index(class_name)
+                class_index = 0
+                
+                if class_name == "trailer" or class_name == "train":
+                    continue
+                elif class_name == "car":
+                    class_index = classes.index("car")
+                elif class_name == "rider" or class_name == "person":
+                    class_index = classes.index("person")
+                elif class_name == "truck" or class_name == "bus" or class_name == "caravan":
+                    class_index = classes.index("large-vehicle")
+                elif class_name == "bike" or class_name == "bicycle":
+                    class_index = classes.index("small-vehicle")
+                
+                    
                 poly2d_list = label['poly2d']
                 for poly_dict in poly2d_list:
                     vertices = poly_dict['vertices']
-                    coordinates_str = ' '.join([f"{x/720} {y/1280}" for x, y in vertices])
+                    coordinates_str = ""
+                    for x, y in vertices:
+                        xCoords = x/1280
+                        yCoords = y/720
+                        if xCoords > 1:
+                            xCoords = 1
+                        if yCoords > 1:
+                            yCoords = 1
+                        coordinates_str += f"{xCoords} {yCoords} "
                     content = f"{class_index} {coordinates_str}\n"
                     txt_file.write(content)
 
