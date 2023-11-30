@@ -1,3 +1,5 @@
 datasets/bddins_seg/
 runs/
 bddins_seg.yaml
+datasets/
+demoframes/

@@ -1,6 +1,6 @@
 train: ../bddins_seg/train/images
 val: ../bddins_seg/val/images
+test: ../bddins_seg/test/images
 
-
-nc: 9
-names: ['none', 'pedestrian', 'rider', 'car', 'truck', 'bus', 'train', 'motorcycle', 'bicycle']
+nc: 4
+names: ['person', 'car', 'large-vehicle', 'small-vehicle']
